@@ -1,4 +1,7 @@
+configs.json
+
 #.env
+
 *.env
 # Compiled class file
 *.class
