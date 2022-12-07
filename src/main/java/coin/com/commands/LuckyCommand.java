@@ -25,7 +25,7 @@ public class LuckyCommand extends SlashCommand{
     @Override
     public void onExecute(SlashCommandInteractionEvent event) {
         EmbedBuilder eb =new EmbedBuilder();
-        short number = (short) Math.round(Math.random()*2);
+        int number = (int) (Math.random() * 3);
         switch (number){
             case 0:
                 eb.setColor(Color.RED);

@@ -1,7 +1,15 @@
-package coin.com.commands;
+package coin.com.listeners;
 
+import coin.com.commands.*;
+import coin.com.commands.censorship.ToggleCensorshipCommand;
+import coin.com.commands.censorship.AddCensorshipWordCommand;
+import coin.com.commands.censorship.RemoveCensorshipWordCommand;
+import coin.com.commands.receiveRoles.AddReceiveRolesCommand;
+import coin.com.commands.receiveRoles.ReceiveRolesCommand;
+import coin.com.commands.receiveRoles.RemoveReceiveRolesCommand;
+import coin.com.commands.welcome.SetWelcomeChannelCommand;
+import coin.com.commands.welcome.SetWelcomeMessageCommand;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Invite;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -19,10 +27,17 @@ public class CommandManager extends ListenerAdapter {
     public CommandManager() {
         commands = new ArrayList<>();
         commands.add(new HiCommand());
-        commands.add(new YoCommand());
         commands.add(new LuckyCommand());
         commands.add(new DeleteMessagesCommand());
         commands.add(new PSSCommand());
+        commands.add(new ToggleCensorshipCommand());
+        commands.add(new AddCensorshipWordCommand());
+        commands.add(new RemoveCensorshipWordCommand());
+        commands.add(new SetWelcomeChannelCommand());
+        commands.add(new SetWelcomeMessageCommand());
+        commands.add(new ReceiveRolesCommand());
+        commands.add(new AddReceiveRolesCommand());
+        commands.add(new RemoveReceiveRolesCommand());
 
     }
 

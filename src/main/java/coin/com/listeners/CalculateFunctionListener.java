@@ -1,5 +1,6 @@
 package coin.com.listeners;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -31,10 +32,13 @@ public class CalculateFunctionListener extends ListenerAdapter {
             }
         }
         if (!lastNumber.isEmpty()) formula.add(lastNumber);
+        if(formula.size()<=1)return;
         System.out.println(formula);
         String ans =doMath(formula);
         if (ans== null)return;
-        event.getChannel().sendMessage(ans).queue();
+        EmbedBuilder eb = new EmbedBuilder();
+        eb.setTitle("答案:").setDescription(ans).setColor(0xffea00);
+        event.getMessage().replyEmbeds(eb.build()).queue();
     }
 
     String doMath(List<String> formula) {
