@@ -1,4 +1,4 @@
-package coin.com.listeners;
+package com.coin.listeners;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -32,10 +32,10 @@ public class CalculateFunctionListener extends ListenerAdapter {
             }
         }
         if (!lastNumber.isEmpty()) formula.add(lastNumber);
-        if(formula.size()<=1)return;
-        System.out.println(formula);
-        String ans =doMath(formula);
-        if (ans== null)return;
+        if (formula.size() <= 1) return;
+
+        String ans = doMath(formula);
+        if (ans == null) return;
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle("答案:").setDescription(ans).setColor(0xffea00);
         event.getMessage().replyEmbeds(eb.build()).queue();
@@ -43,15 +43,16 @@ public class CalculateFunctionListener extends ListenerAdapter {
 
     String doMath(List<String> formula) {
 //"(",")"
+        System.out.println(formula);
         for (int i = 0; i < formula.size(); i++) {
             if (formula.get(i).equals("(")) {
                 int bracketsCount = 0;
                 for (int j = i + 1; j < formula.size(); j++) {
-                    if (formula.get(j).equals("("))
-                        bracketsCount++;
+                    if (formula.get(j).equals("(")) bracketsCount++;
                     if (formula.get(j).equals(")")) {
                         if (bracketsCount == 0) {
                             doMath(formula.subList(i + 1, j));
+                            System.out.println(formula);
                             formula.remove(i);
                             formula.remove(i + 1);
                             break;
@@ -82,10 +83,8 @@ public class CalculateFunctionListener extends ListenerAdapter {
             if (s.equals("*") || s.equalsIgnoreCase("x") || s.equals("÷") || s.equals("/")) {
                 double n1 = Double.parseDouble(formula.get(i - 1));
                 double n2 = Double.parseDouble(formula.get(i + 1));
-                if (s.equals("*") || s.equalsIgnoreCase("x"))
-                    formula.set(i, String.valueOf(n1 * n2));
-                else
-                    formula.set(i, String.valueOf(n1 / n2));
+                if (s.equals("*") || s.equalsIgnoreCase("x")) formula.set(i, String.valueOf(n1 * n2));
+                else formula.set(i, String.valueOf(n1 / n2));
                 formula.remove(i + 1);
                 formula.remove(i - 1);
                 System.out.println(formula);
@@ -100,11 +99,8 @@ public class CalculateFunctionListener extends ListenerAdapter {
             if (s.equals("+") || s.equals("-")) {
                 double n1 = Double.parseDouble(formula.get(i - 1));
                 double n2 = Double.parseDouble(formula.get(i + 1));
-                if (s.equals("+"))
-                    formula.set(i, String.valueOf(n1 + n2));
-                else
-                    formula.set(i, String.valueOf(n1 - n2));
-
+                if (s.equals("+")) formula.set(i, String.valueOf(n1 + n2));
+                else formula.set(i, String.valueOf(n1 - n2));
                 formula.remove(i + 1);
                 formula.remove(i - 1);
                 System.out.println(formula);
@@ -113,7 +109,7 @@ public class CalculateFunctionListener extends ListenerAdapter {
 
 
         }
-        if(formula.size()>1)return null;
+        if (formula.size() > 1) return null;
         return formula.get(0);
     }
 }

@@ -1,11 +1,9 @@
-package coin.com.commands.receiveRoles;
+package com.coin.commands.receiveRoles;
 
-import coin.com.Config;
-import coin.com.Main;
-import coin.com.commands.SlashCommand;
+import com.coin.Config;
+import com.coin.Main;
+import com.coin.commands.SlashCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -39,7 +37,7 @@ public class RemoveReceiveRolesCommand extends SlashCommand {
     public void onExecute(SlashCommandInteractionEvent event) {
         long guildId = event.getGuild().getIdLong();
         String emoji = event.getOption("emoji").getAsString();
-        boolean removed= config.removeEmojiRole(guildId,Emoji.fromUnicode(emoji).getAsCodepoints());
+        boolean removed = config.removeEmojiRole(guildId, Emoji.fromUnicode(emoji).getAsCodepoints());
         EmbedBuilder eb = new EmbedBuilder();
         if (!removed) {
             eb.setColor(Color.RED).setTitle("移除失敗").setDescription("未找到此Emoji");
@@ -48,7 +46,7 @@ public class RemoveReceiveRolesCommand extends SlashCommand {
         }
 
 
-        eb.setTitle("設定成功").setDescription("已將 " + emoji  + " 移除" ).setColor(Color.GREEN);
+        eb.setTitle("設定成功").setDescription("已將 " + emoji + " 移除").setColor(Color.GREEN);
         event.replyEmbeds(eb.build()).queue();
     }
 }

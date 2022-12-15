@@ -1,8 +1,8 @@
-package coin.com.commands.censorship;
+package com.coin.commands.censorship;
 
-import coin.com.Config;
-import coin.com.Main;
-import coin.com.commands.SlashCommand;
+import com.coin.Main;
+import com.coin.commands.SlashCommand;
+import com.coin.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;

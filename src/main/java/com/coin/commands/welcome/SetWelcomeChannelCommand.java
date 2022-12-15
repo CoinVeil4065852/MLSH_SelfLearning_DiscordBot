@@ -1,8 +1,8 @@
-package coin.com.commands.welcome;
+package com.coin.commands.welcome;
 
-import coin.com.Config;
-import coin.com.Main;
-import coin.com.commands.SlashCommand;
+import com.coin.Config;
+import com.coin.Main;
+import com.coin.commands.SlashCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -12,41 +12,43 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.awt.*;
 
-public class SetWelcomeMessageCommand extends SlashCommand {
+public class SetWelcomeChannelCommand extends SlashCommand {
     Config config;
-    public SetWelcomeMessageCommand(){
-        config= Main.config;
+
+    public SetWelcomeChannelCommand() {
+        config = Main.config;
     }
+
     @Override
     public String getDescription() {
-        return "set welcome message";
+        return "set welcome channel";
     }
 
     @Override
     public String getName() {
-        return "welcomemsgset";
+        return "welcomechset";
     }
 
     @Override
     public OptionData[] getOptions() {
-        return new OptionData[]{new OptionData(OptionType.STRING, "message", "the message you want to set")};
+        return new OptionData[]{new OptionData(OptionType.CHANNEL, "channel", "the channel you want to set")};
     }
 
     @Override
     public void onExecute(SlashCommandInteractionEvent event) {
         long guildId = event.getGuild().getIdLong();
-        OptionMapping option = event.getOption("message");
+        OptionMapping option = event.getOption("channel");
         if (option == null) {
-            config.setWelcomeMessage(guildId,null);
+            config.setWelcomeChannel(guildId, null);
             EmbedBuilder eb = new EmbedBuilder();
-            eb.setTitle("設定成功").setDescription("已移除歡迎訊息").setColor(Color.GREEN);
+            eb.setTitle("設定成功").setDescription("已移除歡迎頻道").setColor(Color.GREEN);
             event.replyEmbeds(eb.build()).queue();
             return;
         }
-        String message = option.getAsString();
-        config.setWelcomeMessage(guildId,message);
+        TextChannel channel = event.getOption("channel").getAsChannel().asTextChannel();
+        config.setWelcomeChannel(guildId, channel.getIdLong());
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setTitle("設定成功").setDescription("已將 \"" + message + "\" 設為歡迎訊息").setColor(Color.GREEN);
+        eb.setTitle("設定成功").setDescription("已將 \"" + channel.getName() + "\" 設為歡迎頻道").setColor(Color.GREEN);
         event.replyEmbeds(eb.build()).queue();
     }
 }

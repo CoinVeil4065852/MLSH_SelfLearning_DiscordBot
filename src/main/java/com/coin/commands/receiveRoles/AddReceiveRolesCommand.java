@@ -1,8 +1,8 @@
-package coin.com.commands.receiveRoles;
+package com.coin.commands.receiveRoles;
 
-import coin.com.Config;
-import coin.com.Main;
-import coin.com.commands.SlashCommand;
+import com.coin.Config;
+import com.coin.Main;
+import com.coin.commands.SlashCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
@@ -41,24 +41,25 @@ public class AddReceiveRolesCommand extends SlashCommand {
         long guildId = event.getGuild().getIdLong();
         String emoji = event.getOption("emoji").getAsString();
         boolean isEmoji = false;
-        Message m =event.getChannel().sendMessage("測試Emoji").complete();
+        Message m = event.getChannel().sendMessage("測試Emoji").complete();
         try {
             m.addReaction(Emoji.fromUnicode(emoji)).complete();
-            isEmoji=true;
-        }catch (Exception e){}
+            isEmoji = true;
+        } catch (Exception e) {
+        }
         m.delete().queue();
 
         EmbedBuilder eb = new EmbedBuilder();
 
-        if(!isEmoji){
+        if (!isEmoji) {
             eb.setColor(Color.RED).setTitle("設定失敗").setDescription("請使用Emoji");
             event.replyEmbeds(eb.build()).queue();
             return;
         }
-        Role role =event.getOption("role").getAsRole();
-        config.addEmojiRole(guildId,Emoji.fromUnicode(emoji).getAsCodepoints(), role.getIdLong());
+        Role role = event.getOption("role").getAsRole();
+        config.addEmojiRole(guildId, Emoji.fromUnicode(emoji).getAsCodepoints(), role.getIdLong());
 
-        eb.setTitle("設定成功").setDescription("已將 "+emoji+" == "  + role.getName() + " 新增").setColor(Color.GREEN);
+        eb.setTitle("設定成功").setDescription("已將 " + emoji + " == " + role.getName() + " 新增").setColor(Color.GREEN);
         event.replyEmbeds(eb.build()).queue();
     }
 }

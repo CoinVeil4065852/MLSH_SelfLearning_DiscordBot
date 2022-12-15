@@ -1,22 +1,26 @@
-package coin.com;
+package com.coin;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class Config {
     private Map<Long, GuildConfig> guildsConfigMap;
-    private File file;
+    private final File file;
 
     public Config(File file) throws IOException {
         this.file = file;
         if (!file.exists()) file.createNewFile();
         Gson gson = new Gson();
-        guildsConfigMap = gson.fromJson(new FileReader(file), new TypeToken<Map<Long, GuildConfig>>() {});
+        guildsConfigMap = gson.fromJson(new FileReader(file), new TypeToken<Map<Long, GuildConfig>>() {
+        });
         if (guildsConfigMap == null) guildsConfigMap = new HashMap<>();
     }
 
@@ -50,15 +54,15 @@ public class Config {
     }
 
 
-    public void addEmojiRole(long guildId, String emoji,Long role) {
+    public void addEmojiRole(long guildId, String emoji, Long role) {
         if (!guildsConfigMap.containsKey(guildId)) guildsConfigMap.put(guildId, new GuildConfig());
-        guildsConfigMap.get(guildId).getEmojiRoleMap().put(emoji,role);
+        guildsConfigMap.get(guildId).getEmojiRoleMap().put(emoji, role);
         save();
     }
 
     public boolean removeEmojiRole(long guildId, String emoji) {
         if (!guildsConfigMap.containsKey(guildId)) guildsConfigMap.put(guildId, new GuildConfig());
-        boolean removed =guildsConfigMap.get(guildId).getEmojiRoleMap().remove(emoji)!=null;
+        boolean removed = guildsConfigMap.get(guildId).getEmojiRoleMap().remove(emoji) != null;
         save();
         return removed;
     }
@@ -73,6 +77,7 @@ public class Config {
         guildsConfigMap.get(guildId).setWelcomeChannel(welcomeChannel);
         save();
     }
+
     public String getWelcomeMessage(long guildId) {
         if (!guildsConfigMap.containsKey(guildId)) return null;
         return guildsConfigMap.get(guildId).getWelcomeMessage();
@@ -108,7 +113,7 @@ public class Config {
 
     public boolean removeCensorshipWords(long guildId, String word) {
         if (!guildsConfigMap.containsKey(guildId)) guildsConfigMap.put(guildId, new GuildConfig());
-        boolean removed =guildsConfigMap.get(guildId).getCensorshipWords().removeIf(w -> w.equals(word));
+        boolean removed = guildsConfigMap.get(guildId).getCensorshipWords().removeIf(w -> w.equals(word));
         save();
         return removed;
     }

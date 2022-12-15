@@ -1,4 +1,4 @@
-package coin.com;
+package com.coin;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class GuildConfig {
     private Long roleReceiveMessageId;
-    private Map<String,Long> emojiRoleMap;
+    private Map<String, Long> emojiRoleMap;
 
     private Long welcomeChannel;
     private String welcomeMessage;
@@ -17,10 +17,7 @@ public class GuildConfig {
     private boolean censorship;
 
 
-
-
-
-//    public GuildConfig(long roleReceiveMessageId, Map emojiRoleMap, String welcomeMessage, Set<String> censorshipWords) {
+    //    public GuildConfig(long roleReceiveMessageId, Map emojiRoleMap, String welcomeMessage, Set<String> censorshipWords) {
 //        this.roleReceiveMessageId = roleReceiveMessageId;
 //        this.emojiRoleMap = emojiRoleMap;
 //        this.welcomeMessage = welcomeMessage;
@@ -29,7 +26,7 @@ public class GuildConfig {
     public GuildConfig() {
         this.roleReceiveMessageId = null;
         this.emojiRoleMap = new HashMap<>();
-        this.welcomeChannel=null;
+        this.welcomeChannel = null;
         this.welcomeMessage = "Welcome %username !";
         this.censorship = false;
         this.censorshipWords = new HashSet<>();
@@ -43,7 +40,7 @@ public class GuildConfig {
         this.roleReceiveMessageId = roleReceiveMessageId;
     }
 
-    public Map<String,Long> getEmojiRoleMap() {
+    public Map<String, Long> getEmojiRoleMap() {
         return emojiRoleMap;
     }
 
@@ -74,6 +71,7 @@ public class GuildConfig {
     public void setCensorship(boolean censorship) {
         this.censorship = censorship;
     }
+
     public Set<String> getCensorshipWords() {
         return censorshipWords;
     }

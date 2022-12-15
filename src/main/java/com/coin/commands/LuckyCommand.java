@@ -1,4 +1,4 @@
-package coin.com.commands;
+package com.coin.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.awt.*;
 
-public class LuckyCommand extends SlashCommand{
+public class LuckyCommand extends SlashCommand {
     @Override
     public String getDescription() {
         return "tell you whether you are lucky or not";
@@ -24,9 +24,9 @@ public class LuckyCommand extends SlashCommand{
 
     @Override
     public void onExecute(SlashCommandInteractionEvent event) {
-        EmbedBuilder eb =new EmbedBuilder();
+        EmbedBuilder eb = new EmbedBuilder();
         int number = (int) (Math.random() * 3);
-        switch (number){
+        switch (number) {
             case 0:
                 eb.setColor(Color.RED);
                 eb.setTitle("Bad");

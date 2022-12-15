@@ -1,4 +1,4 @@
-package coin.com.listeners;
+package com.coin.listeners;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
@@ -8,10 +8,10 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PPSListener extends ListenerAdapter {
-    private Map<Long, Long> userMessageMap;
+public class PSSListener extends ListenerAdapter {
+    private final Map<Long, Long> userMessageMap;
 
-    public PPSListener() {
+    public PSSListener() {
         userMessageMap = new HashMap<>();
     }
 
@@ -20,7 +20,7 @@ public class PPSListener extends ListenerAdapter {
         if (!userMessageMap.containsKey(event.getUserIdLong())) return;
         long messageId = event.getMessageIdLong();
         if (userMessageMap.get(event.getUserIdLong()) != messageId) return;
-        Emoji emojis[] = {Emoji.fromUnicode("U+1F590"), Emoji.fromUnicode("U+270C"), Emoji.fromUnicode("U+270A")};
+        Emoji[] emojis = {Emoji.fromUnicode("U+1F590"), Emoji.fromUnicode("U+270C"), Emoji.fromUnicode("U+270A")};
         int player = -1;
         for (int i = 0; i < 3; i++) {
             if (event.getReaction().getEmoji().equals(emojis[i])) {
@@ -30,9 +30,7 @@ public class PPSListener extends ListenerAdapter {
         }
         int npc = (int) (Math.random() * 3);
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setTitle("猜拳結果:")
-                .addField(event.getUser().getName()+":", emojis[player].getAsReactionCode(), true)
-                .addField("電腦:", emojis[npc].getAsReactionCode(), true).setColor(0xffea00);
+        eb.setTitle("猜拳結果:").addField(event.getUser().getName() + ":", emojis[player].getAsReactionCode(), true).addField("電腦:", emojis[npc].getAsReactionCode(), true).setColor(0xffea00);
         if (player == npc) eb.setDescription("平手!");
         else if ((player == 0 && npc == 2) || (player == 1 && npc == 0) || (player == 2 && npc == 1))
             eb.setDescription(event.getUser().getAsMention() + "贏了!");

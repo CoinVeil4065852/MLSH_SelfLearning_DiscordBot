@@ -1,26 +1,23 @@
-package coin.com;
+package com.coin;
 
-import coin.com.listeners.CommandManager;
-import coin.com.listeners.*;
+import com.coin.listeners.*;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 public class Main {
     private static JDA jda;
-    public static PPSListener ppsListener;
+    public static PSSListener pssListener;
     public static Config config;
 
     public static void main(String[] args) throws IOException {
         Dotenv dotenv = Dotenv.load();
         config=new Config(new File("configs.json"));
-        ppsListener = new PPSListener();
+        pssListener = new PSSListener();
         jda = JDABuilder.create(dotenv.get("BOT_TOKEN")
                 , GatewayIntent.GUILD_MESSAGES
                 , GatewayIntent.GUILD_MEMBERS
@@ -34,7 +31,7 @@ public class Main {
                 , new WelcomeMessageListener()
                 , new ReceiveRolesListener()
                 , new CalculateFunctionListener()
-                , ppsListener);
+                , pssListener);
 
     }
 }

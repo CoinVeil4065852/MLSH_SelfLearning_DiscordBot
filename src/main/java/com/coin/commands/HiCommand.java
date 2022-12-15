@@ -1,9 +1,9 @@
-package coin.com.commands;
+package com.coin.commands;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
-public class HiCommand extends SlashCommand{
+public class HiCommand extends SlashCommand {
     @Override
     public String getDescription() {
         return "say hi to whoever execute";

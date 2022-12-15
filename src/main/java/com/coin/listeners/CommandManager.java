@@ -1,14 +1,14 @@
-package coin.com.listeners;
+package com.coin.listeners;
 
-import coin.com.commands.*;
-import coin.com.commands.censorship.ToggleCensorshipCommand;
-import coin.com.commands.censorship.AddCensorshipWordCommand;
-import coin.com.commands.censorship.RemoveCensorshipWordCommand;
-import coin.com.commands.receiveRoles.AddReceiveRolesCommand;
-import coin.com.commands.receiveRoles.ReceiveRolesCommand;
-import coin.com.commands.receiveRoles.RemoveReceiveRolesCommand;
-import coin.com.commands.welcome.SetWelcomeChannelCommand;
-import coin.com.commands.welcome.SetWelcomeMessageCommand;
+import com.coin.commands.*;
+import com.coin.commands.censorship.AddCensorshipWordCommand;
+import com.coin.commands.censorship.RemoveCensorshipWordCommand;
+import com.coin.commands.censorship.ToggleCensorshipCommand;
+import com.coin.commands.receiveRoles.AddReceiveRolesCommand;
+import com.coin.commands.receiveRoles.ReceiveRolesCommand;
+import com.coin.commands.receiveRoles.RemoveReceiveRolesCommand;
+import com.coin.commands.welcome.SetWelcomeChannelCommand;
+import com.coin.commands.welcome.SetWelcomeMessageCommand;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CommandManager extends ListenerAdapter {
-    private List<SlashCommand> commands;
+    private final List<SlashCommand> commands;
 
     public CommandManager() {
         commands = new ArrayList<>();
@@ -38,11 +38,10 @@ public class CommandManager extends ListenerAdapter {
         commands.add(new ReceiveRolesCommand());
         commands.add(new AddReceiveRolesCommand());
         commands.add(new RemoveReceiveRolesCommand());
-
     }
 
     private void registerCommands(Guild guild) {
-        List<CommandData> commandDatas = commands.stream().map(c->Commands.slash(c.getName(),c.getDescription()).addOptions(c.getOptions())).collect(Collectors.toList());
+        List<CommandData> commandDatas = commands.stream().map(c -> Commands.slash(c.getName(), c.getDescription()).addOptions(c.getOptions())).collect(Collectors.toList());
         guild.updateCommands().addCommands(commandDatas).queue();
     }
 

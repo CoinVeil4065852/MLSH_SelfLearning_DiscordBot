@@ -1,13 +1,12 @@
-package coin.com.commands;
+package com.coin.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.awt.*;
-import java.util.concurrent.TimeUnit;
 
-public class DeleteMessagesCommand extends SlashCommand{
+public class DeleteMessagesCommand extends SlashCommand {
 
     @Override
     public String getDescription() {
